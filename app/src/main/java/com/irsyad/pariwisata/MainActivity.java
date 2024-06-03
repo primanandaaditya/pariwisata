@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_map, R.id.navigation_terdekat, R.id.navigation_tentang)
                 .build();
@@ -53,15 +48,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
-//        Gps gps = new Gps(MainActivity.this);
-//        Log.d("latitude", String.valueOf(gps.getLatitude()));
-//        Log.d("longitude", String.valueOf(gps.getLongitude()));
-//        Toast.makeText(MainActivity.this, String.valueOf(gps.getLatitude()), Toast.LENGTH_SHORT).show();
-//        Toast.makeText(MainActivity.this, String.valueOf(gps.getLongitude()), Toast.LENGTH_SHORT).show();
     }
-
-
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -73,6 +60,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
 }
