@@ -22,4 +22,11 @@ public interface ITempat {
     rx.Observable<TempatModel> tempatSearch(
             @Field("key") String key
     );
+
+    @FormUrlEncoded
+    @POST(Endpoint.tempat_terdekat)
+    rx.Observable<TempatModel> tempatTerdekat(
+        @Field("latitude") Double latitude,
+        @Field("longitude") Double longitude
+    );
 }

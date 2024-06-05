@@ -1,5 +1,7 @@
 package com.irsyad.pariwisata.api.tempat;
 
+import java.util.Comparator;
+
 public class Tempat {
     String id_tempat;
     String id_kategori;
@@ -10,6 +12,15 @@ public class Tempat {
     String foto;
     String latitude;
     String longitude;
+    String jarak;
+
+    public String getJarak() {
+        return jarak;
+    }
+
+    public void setJarak(String jarak) {
+        this.jarak = jarak;
+    }
 
     public String getId_tempat() {
         return id_tempat;
@@ -82,4 +93,5 @@ public class Tempat {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+
 }

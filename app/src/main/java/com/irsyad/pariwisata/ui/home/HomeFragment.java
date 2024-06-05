@@ -1,11 +1,13 @@
 package com.irsyad.pariwisata.ui.home;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -24,19 +26,14 @@ import com.irsyad.pariwisata.api.kategori.IKategori;
 import com.irsyad.pariwisata.api.kategori.Kategori;
 import com.irsyad.pariwisata.api.kategori.KategoriModel;
 import com.irsyad.pariwisata.api.kategori.KategoriUtil;
-import com.irsyad.pariwisata.api.reqres.IUser;
-import com.irsyad.pariwisata.api.reqres.UserModel;
-import com.irsyad.pariwisata.api.reqres.UserUtil;
 import com.irsyad.pariwisata.api.tempat.ITempat;
 import com.irsyad.pariwisata.api.tempat.Tempat;
 import com.irsyad.pariwisata.api.tempat.TempatModel;
 import com.irsyad.pariwisata.api.tempat.TempatUtil;
 import com.irsyad.pariwisata.databinding.FragmentHomeBinding;
 import com.irsyad.pariwisata.helper.Endpoint;
+import com.irsyad.pariwisata.ui.detail.DetailActivity;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -160,6 +157,21 @@ public class HomeFragment extends Fragment {
                     lvTempatHome.setVisibility(View.VISIBLE);
                     TempatAdapter tempatAdapter = new TempatAdapter(tempatModel, getActivity());
                     lvTempatHome.setAdapter(tempatAdapter);
+
+                    lvTempatHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Tempat tempat = (Tempat) parent.getAdapter().getItem(position);
+                            Intent intent = new Intent(getActivity(), DetailActivity.class);
+                            intent.putExtra("nama", tempat.getNama());
+                            intent.putExtra("alamat", tempat.getAlamat());
+                            intent.putExtra("detail", tempat.getDetail());
+                            intent.putExtra("foto", tempat.getFoto());
+                            intent.putExtra("latitude", tempat.getLatitude());
+                            intent.putExtra("longitude", tempat.getLongitude());
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         });
