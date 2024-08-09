@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.admin.AdminActivity">
+
+
+    <Button
+        android:text="User"
+        android:id="@+id/btnUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:text="Kategori"
+        android:id="@+id/btnKategori"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:text="Tempat"
+        android:id="@+id/btnTempat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:text="Jelajah"
+        android:id="@+id/btnJelajah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:text="Logout"
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+</LinearLayout>

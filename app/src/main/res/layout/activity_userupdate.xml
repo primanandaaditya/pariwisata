@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.admin.UserupdateActivity">
+
+    <TextView
+        android:text="Nama :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etNama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <TextView
+        android:text="Alamat :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etAlamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <TextView
+        android:text="Tempat lahir :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etTempat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+
+    <TextView
+        android:text="Tanggal lahir :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etTgllahir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <TextView
+        android:text="Jenis kelamin :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <LinearLayout
+        android:id="@+id/llPass"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Password :"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <TextView
+            android:text="Ulangi password :"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/etUPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn"
+        android:text="SIMPAN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btnHapus"
+        android:text="Hapus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+</LinearLayout>

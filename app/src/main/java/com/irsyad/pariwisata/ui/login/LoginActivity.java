@@ -24,6 +24,8 @@ import com.irsyad.pariwisata.api.login.ILogin;
 import com.irsyad.pariwisata.api.login.LoginModel;
 import com.irsyad.pariwisata.api.login.LoginUtil;
 import com.irsyad.pariwisata.helper.Endpoint;
+import com.irsyad.pariwisata.session.SessionManager;
+import com.irsyad.pariwisata.ui.admin.AdminActivity;
 
 import java.util.Objects;
 
@@ -34,6 +36,7 @@ import rx.schedulers.Schedulers;
 public class LoginActivity extends AppCompatActivity {
 
     boolean showPass = false;
+    SessionManager sessionManager;
     ProgressDialog progressDialog;
     ImageView iv_show_pass;
     Button btn;
@@ -42,14 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-
         findID();
     }
 
@@ -108,7 +104,17 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onNext(LoginModel loginModel) {
-                progressDialog.show();
+                progressDialog.dismiss();
+                sessionManager = new SessionManager(LoginActivity.this);
+                sessionManager.createLoginSession(
+                        loginModel.getPesan().getNama(),
+                        loginModel.getPesan().getIdUser(),
+                        loginModel.getPesan().getRole(),
+                        loginModel.getPesan().getAlamat(),
+                        loginModel.getPesan().getTempat(),
+                        loginModel.getPesan().getTgllahir(),
+                        loginModel.getPesan().getGender()
+                );
                 if (loginModel.getPesan().getError().equals("1")){
                     Toast.makeText(LoginActivity.this, "Nama atau password salah", Toast.LENGTH_LONG).show();
                 }else{
@@ -118,7 +124,9 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }else{
-                        Toast.makeText(LoginActivity.this,"ADMIN", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }
