@@ -14,5 +14,6 @@ public class Endpoint {
     public static final String tempat_by_kategori = "tempat/tempat_by_kategori.php";
     public static final String tempat_search = "tempat/tempat_search.php";
     public static final String tempat_terdekat = "tempat/tempat_terdekat.php";
+    public static final String tempat_insert = "tempat/tempat_insert.php";
     public static final String mohon_tunggu = "Mohon tunggu...";
 }

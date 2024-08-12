@@ -34,6 +34,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
 }
 
 dependencies {
@@ -61,8 +65,7 @@ dependencies {
     implementation("io.reactivex:rxjava:1.1.6")
     implementation("io.reactivex:rxandroid:1.2.1")
     implementation("com.squareup.retrofit2:adapter-rxjava:2.1.0")
-
-
+    implementation("id.zelory:compressor:2.1.1")
     implementation("com.google.android.gms:play-services-maps:15.0.1")
     implementation("com.google.android.gms:play-services-location:15.0.1")
 

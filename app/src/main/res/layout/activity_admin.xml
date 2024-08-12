@@ -19,6 +19,7 @@
     </Button>
 
     <Button
+        android:visibility="gone"
         android:text="Kategori"
         android:id="@+id/btnKategori"
         android:layout_width="match_parent"

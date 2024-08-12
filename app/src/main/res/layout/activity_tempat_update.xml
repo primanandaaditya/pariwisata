@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.admin.TempatUpdateActivity">
+
+    <TextView
+        android:text="Nama tempat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etNama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <TextView
+        android:text="Alamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etAlamat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <TextView
+        android:text="Deskripsi tempat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:id="@+id/etDeskripsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+
+    <TextView
+        android:text="Kategori"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <Spinner
+        android:id="@+id/spKategori"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:inputType="numberDecimal"
+                android:id="@+id/etLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:inputType="numberDecimal"
+                android:id="@+id/etLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:text="Foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <ImageView
+        android:src="@drawable/ic_launcher_background"
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </ImageView>
+
+    <Button
+        android:text="Simpan"
+        android:id="@+id/btnSimpan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="Hapus"
+        android:id="@+id/btnHapus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
