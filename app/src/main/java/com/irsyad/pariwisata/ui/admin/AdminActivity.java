@@ -52,6 +52,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdminActivity.this, MainActivity.class);
+                intent.putExtra("jenis","1");
                 startActivity(intent);
             }
         });

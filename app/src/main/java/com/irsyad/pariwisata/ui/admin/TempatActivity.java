@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.irsyad.pariwisata.R;
 import com.irsyad.pariwisata.adapter.TempatAdapter;
 import com.irsyad.pariwisata.api.tempat.ITempat;
+import com.irsyad.pariwisata.api.tempat.Tempat;
 import com.irsyad.pariwisata.api.tempat.TempatModel;
 import com.irsyad.pariwisata.api.tempat.TempatUtil;
 import com.irsyad.pariwisata.helper.Endpoint;
@@ -92,6 +94,23 @@ public class TempatActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         tempatAdapter = new TempatAdapter(tempatModel, TempatActivity.this);
                         lv.setAdapter(tempatAdapter);
+
+                        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Tempat tempat =(Tempat) adapterView.getAdapter().getItem(i);
+                                Intent intent = new Intent(TempatActivity.this, TempatUpdateActivity.class);
+                                intent.putExtra("jenis","2");
+                                intent.putExtra("nama", tempat.getNama());
+                                intent.putExtra("alamat", tempat.getAlamat());
+                                intent.putExtra("detail", tempat.getDetail());
+                                intent.putExtra("id_kategori", tempat.getId_kategori());
+                                intent.putExtra("latitude", tempat.getLatitude());
+                                intent.putExtra("longitude", tempat.getLongitude());
+                                intent.putExtra("id", tempat.getId_tempat());
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
     }

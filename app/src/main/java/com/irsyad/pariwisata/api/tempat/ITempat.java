@@ -49,4 +49,22 @@ public interface ITempat {
             @Part("longitude") RequestBody longitude,
             @Part MultipartBody.Part foto
     );
+
+    @FormUrlEncoded
+    @POST(Endpoint.tempat_edit)
+    rx.Observable<BaseModel> editTempat(
+            @Field("nama") String nama,
+            @Field("alamat") String alamat,
+            @Field("detail") String detail,
+            @Field("id_kategori") String id_kategori,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude,
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST(Endpoint.tempat_delete)
+    rx.Observable<BaseModel> hapusTempat(
+      @Field("id") String id
+    );
 }

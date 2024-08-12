@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ import com.irsyad.pariwisata.api.tempat.TempatUtil;
 import com.irsyad.pariwisata.base.BaseModel;
 import com.irsyad.pariwisata.helper.Endpoint;
 import com.irsyad.pariwisata.helper.ResizeImage;
+import com.irsyad.pariwisata.session.SessionManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,8 +86,10 @@ import rx.schedulers.Schedulers;
 public class TempatUpdateActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText etNama, etAlamat, etDeskripsi, etLatitude, etLongitude;
+    LinearLayout llFoto;
     File photoFile = null;
     String pathPariwisata, pathGaleri;
+    String nama,alamat,detail,id_kategori,latitude,longitude,id;
     ProgressDialog progressDialog;
     Spinner spKategori;
     ImageView iv;
@@ -93,7 +97,8 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
     HashMap<String, String> hashMapKategori;
     String selectedIdKategori = "";
     List<String> kategoris;
-    String imageFilePath;
+    String imageFilePath = "";
+    String jenis = "";
 
     int PERMISSION_ALL = 1;
     String[] PERMISSIONS = {
@@ -125,12 +130,10 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         return true;
     }
 
-
     void findID(){
 
         pathPariwisata = Environment.getExternalStorageDirectory() + File.separator + "DCIM/Pariwisata/";
         pathGaleri = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
-
 
         etNama = findViewById(R.id.etNama);
         etAlamat = findViewById(R.id.etAlamat);
@@ -142,13 +145,53 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         iv= findViewById(R.id.iv);
         btnSimpan = findViewById(R.id.btnSimpan);
         btnHapus = findViewById(R.id.btnHapus);
+        llFoto = findViewById(R.id.llFoto);
 
         getKategori();
+
+        Intent intent = getIntent();
+        jenis = intent.getStringExtra("jenis");
+
+        if (jenis.equals("2")){
+            llFoto.setVisibility(View.GONE);
+            btnHapus.setVisibility(View.VISIBLE);
+
+            nama = intent.getStringExtra("nama");
+            alamat = intent.getStringExtra("alamat");
+            detail = intent.getStringExtra("detail");
+            id_kategori = intent.getStringExtra("id_kategori");
+            latitude = intent.getStringExtra("latitude");
+            longitude = intent.getStringExtra("longitude");
+            id = intent.getStringExtra("id");
+
+            etNama.setText(nama);
+            etAlamat.setText(alamat);
+            etDeskripsi.setText(detail);
+            etLatitude.setText(latitude);
+            etLongitude.setText(longitude);
+
+        }else{
+            llFoto.setVisibility(View.VISIBLE);
+            btnHapus.setVisibility(View.GONE);
+        }
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                simpan();
+                if (jenis.equals("1")){
+                    simpan();
+                }else{
+                    edit();
+                }
+            }
+        });
+
+        btnHapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TempatUpdateActivity.this);
+                builder.setMessage("Apakah Anda akan hapus data ini?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
             }
         });
 
@@ -214,25 +257,7 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
                         .load(imageFilePath)
                         .into(iv);
 
-//                File file = new File(imageFilePath);
-//                try {
-//                    File compressedImage = new Compressor(this)
-//                            .setMaxWidth(640)
-//                            .setMaxHeight(480)
-//                            .setQuality(50)
-//                            .setCompressFormat(Bitmap.CompressFormat.JPEG)
-//                            .setDestinationDirectoryPath(pathPariwisata)
-//                            .compressToFile(file);
-//
-//                    if (file.exists()){
-//                        file.delete();
-//                    }
-//                } catch (IOException e) {
-//                    Toast.makeText(TempatUpdateActivity.this, "Gagal kompres/hapus file gambar kamera!", Toast.LENGTH_SHORT).show();
-//                }
-
             }
-
         }
     }
 
@@ -299,7 +324,59 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         return image;
     }
 
-    void simpan(){
+    void hapus(){
+        progressDialog =new ProgressDialog(TempatUpdateActivity.this);
+        progressDialog.setMessage(Endpoint.mohon_tunggu);
+        progressDialog.show();
+
+        ITempat iTempat = TempatUtil.getTempatInterface();
+        iTempat.hapusTempat(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(TempatUpdateActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        progressDialog.dismiss();
+                        Toast.makeText(TempatUpdateActivity.this, baseModel.getPesan(), Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+    }
+
+    void edit(){
+        if (etNama.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Nama wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (etAlamat.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Alamat wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (etDeskripsi.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Deskripsi tempat wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (etLatitude.getText().toString().isEmpty() || etLongitude.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Latitude dan longitude wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (selectedIdKategori.isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Kategori wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         progressDialog = new ProgressDialog(TempatUpdateActivity.this);
         progressDialog.setMessage(Endpoint.mohon_tunggu);
         progressDialog.show();
@@ -310,8 +387,69 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         String id_kategori = selectedIdKategori;
         String latitude = etLatitude.getText().toString();
         String longitude = etLongitude.getText().toString();
-        Map<String, RequestBody> map = new HashMap<>();
 
+        ITempat iTempat = TempatUtil.getTempatInterface();
+        iTempat.editTempat(nama,alamat,detail,id_kategori,latitude,longitude,id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(TempatUpdateActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        progressDialog.dismiss();
+                        Toast.makeText(TempatUpdateActivity.this, baseModel.getPesan(), Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+    }
+
+    void simpan(){
+
+        if (etNama.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Nama wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (etAlamat.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Alamat wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (etDeskripsi.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Deskripsi tempat wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (etLatitude.getText().toString().isEmpty() || etLongitude.getText().toString().isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Latitude dan longitude wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (selectedIdKategori.isEmpty()){
+            Toast.makeText(TempatUpdateActivity.this, "Kategori wajib diisi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (imageFilePath == ""){
+            Toast.makeText(TempatUpdateActivity.this, "Belum ada foto", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        progressDialog = new ProgressDialog(TempatUpdateActivity.this);
+        progressDialog.setMessage(Endpoint.mohon_tunggu);
+        progressDialog.show();
+
+        String nama = etNama.getText().toString();
+        String alamat = etAlamat.getText().toString();
+        String detail = etDeskripsi.getText().toString();
+        String id_kategori = selectedIdKategori;
+        String latitude = etLatitude.getText().toString();
+        String longitude = etLongitude.getText().toString();
 
         File file = new File(imageFilePath);
         try {
@@ -359,6 +497,7 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
                         public void onNext(BaseModel baseModel) {
                             progressDialog.dismiss();
                             Toast.makeText(TempatUpdateActivity.this, baseModel.getPesan(), Toast.LENGTH_LONG).show();
+                            finish();
                         }
                     });
 
@@ -415,5 +554,22 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
                     }).into(iv);
         }
     });
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    hapus();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
+
 
 }
