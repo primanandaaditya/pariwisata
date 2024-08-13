@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -19,7 +20,7 @@ import com.irsyad.pariwisata.session.SessionManager;
 
 public class AdminActivity extends AppCompatActivity {
 
-    Button btnUser,btnKategori,btnTempat, btnJelajah,btnLogout;
+    LinearLayout btnUser,btnKategori,btnWisata, btnJelajah,btnLogout;
     SessionManager sessionManager;
 
     @Override
@@ -33,11 +34,10 @@ public class AdminActivity extends AppCompatActivity {
 
     void findID(){
         sessionManager = new SessionManager(AdminActivity.this);
-        btnUser = findViewById(R.id.btnUser);
-        btnKategori = findViewById(R.id.btnKategori);
-        btnTempat = findViewById(R.id.btnTempat);
-        btnJelajah = findViewById(R.id.btnJelajah);
-        btnLogout = findViewById(R.id.btnLogout);
+        btnUser = findViewById(R.id.llUser);
+        btnWisata = findViewById(R.id.llWisata);
+        btnJelajah = findViewById(R.id.llJelajah);
+        btnLogout = findViewById(R.id.llLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +65,8 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        btnKategori.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AdminActivity.this, KategoriActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        btnTempat.setOnClickListener(new View.OnClickListener() {
+        btnWisata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(AdminActivity.this, TempatActivity.class);

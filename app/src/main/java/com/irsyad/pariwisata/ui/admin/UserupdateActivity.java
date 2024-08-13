@@ -1,11 +1,13 @@
 package com.irsyad.pariwisata.ui.admin;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -24,6 +26,10 @@ import com.irsyad.pariwisata.base.BaseModel;
 import com.irsyad.pariwisata.helper.Endpoint;
 import com.irsyad.pariwisata.session.SessionManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,18 +41,23 @@ public class UserupdateActivity extends AppCompatActivity {
     Button btn, btnHapus;
     String jenis, nama, alamat, tempat, tgllahir, gender, id;
     ProgressDialog progressDialog;
+    private DatePickerDialog datePickerDialog;
+    private SimpleDateFormat dateFormatter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_userupdate);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findID();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     void findID(){
@@ -75,6 +86,15 @@ public class UserupdateActivity extends AppCompatActivity {
             llPass.setVisibility(View.GONE);
             btnHapus.setVisibility(View.VISIBLE);
         }
+
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        etTgllahir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateDialog();
+            }
+        });
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +164,19 @@ public class UserupdateActivity extends AppCompatActivity {
         });
     }
 
+    private void showDateDialog(){
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                etTgllahir.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
 
 
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

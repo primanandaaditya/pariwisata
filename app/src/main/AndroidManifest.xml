@@ -22,7 +22,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -47,7 +47,7 @@
         <activity
             android:name=".ui.admin.UserupdateActivity"
             android:exported="false"
-            android:label="Update User" />
+            android:label="Manajemen User" />
         <activity
             android:name=".ui.admin.TempatActivity"
             android:exported="false"
@@ -65,16 +65,18 @@
             android:exported="false"
             android:label="Menu Admin" />
         <activity
+            android:theme="@style/TanpaActionBar"
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:label="Pariwisata">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/Theme.Belajar"
+            android:label="Login"
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity

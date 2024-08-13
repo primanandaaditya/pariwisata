@@ -131,19 +131,24 @@ public class TerdekatFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_terdekat, container, false);
     }
     private void updateLocationUI() {
-        if (mCurrentLocation != null) {
-            myLatitude = mCurrentLocation.getLatitude();
-            myLongitude = mCurrentLocation.getLongitude();
-            if (myLatitude == 0d || myLongitude == 0d){
-            }else{
-                if (tm.getPesan() == null){
-                    getTempatTerdekat(myLatitude, myLongitude);
+        try{
+            if (mCurrentLocation != null) {
+                myLatitude = mCurrentLocation.getLatitude();
+                myLongitude = mCurrentLocation.getLongitude();
+                if (myLatitude == 0d || myLongitude == 0d){
+                }else{
+                    if (tm.getPesan() == null){
+                        getTempatTerdekat(myLatitude, myLongitude);
+                    }
                 }
+            }else{
+                myLatitude = 0d;
+                myLongitude = 0d;
             }
-        }else{
-            myLatitude = 0d;
-            myLongitude = 0d;
+        }catch (Exception e){
+
         }
+
     }
     @Override
     public void onResume() {
@@ -154,27 +159,31 @@ public class TerdekatFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-            mSettingsClient = LocationServices.getSettingsClient(getActivity());
-            mLocationCallback = new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    super.onLocationResult(locationResult);
-                    mCurrentLocation = locationResult.getLastLocation();
-                    onPostExecute(null);
+            try{
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                mSettingsClient = LocationServices.getSettingsClient(getActivity());
+                mLocationCallback = new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        mCurrentLocation = locationResult.getLastLocation();
+                        onPostExecute(null);
 
-                }
-            };
+                    }
+                };
 
-            mRequestingLocationUpdates = false;
-            mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-            mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
-            builder.addLocationRequest(mLocationRequest);
-            mLocationSettingsRequest = builder.build();
-            return null;
+                mRequestingLocationUpdates = false;
+                mLocationRequest = new LocationRequest();
+                mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+                mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+                builder.addLocationRequest(mLocationRequest);
+                mLocationSettingsRequest = builder.build();
+                return null;
+            }catch (Exception e){
+                return null;
+            }
         }
 
         @Override

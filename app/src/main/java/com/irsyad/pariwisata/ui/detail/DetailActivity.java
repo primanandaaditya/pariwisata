@@ -20,11 +20,21 @@ public class DetailActivity extends AppCompatActivity {
     Button btn;
     String nama, alamat, detail, foto, latitude, longitude;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getDetail();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     void getDetail(){

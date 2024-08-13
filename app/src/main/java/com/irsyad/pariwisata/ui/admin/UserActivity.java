@@ -40,11 +40,18 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findID();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     void findID(){
+
         lv  = findViewById(R.id.lv);
         btnTambah = findViewById(R.id.btnTambah);
         btnRefresh = findViewById(R.id.btnRefresh);

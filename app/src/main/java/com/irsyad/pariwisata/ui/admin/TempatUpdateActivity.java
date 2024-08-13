@@ -112,11 +112,18 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tempat_update);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //minta izin user untuk aktifkan kamera
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
         findID();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {
@@ -156,13 +163,41 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
             llFoto.setVisibility(View.GONE);
             btnHapus.setVisibility(View.VISIBLE);
 
-            nama = intent.getStringExtra("nama");
-            alamat = intent.getStringExtra("alamat");
-            detail = intent.getStringExtra("detail");
-            id_kategori = intent.getStringExtra("id_kategori");
-            latitude = intent.getStringExtra("latitude");
-            longitude = intent.getStringExtra("longitude");
-            id = intent.getStringExtra("id");
+            if (intent.getStringExtra("nama") == null){
+                nama = "";
+            }else{
+                nama = intent.getStringExtra("nama");
+            }
+            if (intent.getStringExtra("alamat") == null){
+                alamat = "";
+            }else{
+                alamat = intent.getStringExtra("alamat");
+            }
+            if (intent.getStringExtra("detail") == null){
+                detail = "";
+            }else{
+                detail = intent.getStringExtra("detail");
+            }
+            if (intent.getStringExtra("id_kategori") == null){
+                id_kategori = "";
+            }else{
+                id_kategori = intent.getStringExtra("id_kategori");
+            }
+            if (intent.getStringExtra("latitude") == null){
+                latitude = "0";
+            }else{
+                latitude = intent.getStringExtra("latitude");
+            }
+            if (intent.getStringExtra("longitude") == null){
+                longitude = "";
+            }else{
+                longitude = intent.getStringExtra("longitude");
+            }
+            if (intent.getStringExtra("id") == null){
+                id = "";
+            }else{
+                id = intent.getStringExtra("id");
+            }
 
             etNama.setText(nama);
             etAlamat.setText(alamat);
@@ -385,8 +420,8 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         String alamat = etAlamat.getText().toString();
         String detail = etDeskripsi.getText().toString();
         String id_kategori = selectedIdKategori;
-        String latitude = etLatitude.getText().toString();
-        String longitude = etLongitude.getText().toString();
+        String latitude = etLatitude.getText().toString().replace(" ","");
+        String longitude = etLongitude.getText().toString().replace(" ","");
 
         ITempat iTempat = TempatUtil.getTempatInterface();
         iTempat.editTempat(nama,alamat,detail,id_kategori,latitude,longitude,id)
@@ -448,8 +483,8 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
         String alamat = etAlamat.getText().toString();
         String detail = etDeskripsi.getText().toString();
         String id_kategori = selectedIdKategori;
-        String latitude = etLatitude.getText().toString();
-        String longitude = etLongitude.getText().toString();
+        Double latitude = Double.parseDouble(etLatitude.getText().toString().replace(" ",""));
+        Double longitude = Double.parseDouble(etLongitude.getText().toString().replace(" ",""));
 
         File file = new File(imageFilePath);
         try {
@@ -469,8 +504,8 @@ public class TempatUpdateActivity extends AppCompatActivity implements AdapterVi
             RequestBody r_alamat = RequestBody.create(MultipartBody.FORM, alamat);
             RequestBody r_detail = RequestBody.create(MultipartBody.FORM, detail);
             RequestBody r_id_kategori = RequestBody.create(MultipartBody.FORM, id_kategori);
-            RequestBody r_latitude = RequestBody.create(MultipartBody.FORM, latitude);
-            RequestBody r_longitude = RequestBody.create(MultipartBody.FORM, longitude);
+            RequestBody r_latitude = RequestBody.create(MultipartBody.FORM, String.valueOf(latitude));
+            RequestBody r_longitude = RequestBody.create(MultipartBody.FORM, String.valueOf(longitude));
             RequestBody requestFile = RequestBody.create(MultipartBody.FORM, compressedImage);
             MultipartBody.Part foto = MultipartBody.Part.createFormData("foto", imageFilePath, requestFile);
 

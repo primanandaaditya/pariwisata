@@ -97,18 +97,23 @@ public class MapFragment extends Fragment {
     }
 
     private void updateLocationUI() {
-        if (mCurrentLocation != null) {
-            myLatitude = mCurrentLocation.getLatitude();
-            myLongitude = mCurrentLocation.getLongitude();
-            if(mGoogleMap != null){ //prevent crashing if the map doesn't exist yet (eg. on starting activity)
-                mGoogleMap.clear();
-                LatLng posisiku = new LatLng(myLatitude, myLongitude);
-                mGoogleMap.addMarker(new MarkerOptions().position(posisiku).title("Posisi Anda"));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(posisiku));
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(posisiku, 15));
-                getAllTempat();
+        try{
+            if (mCurrentLocation != null) {
+                myLatitude = mCurrentLocation.getLatitude();
+                myLongitude = mCurrentLocation.getLongitude();
+                if(mGoogleMap != null){ //prevent crashing if the map doesn't exist yet (eg. on starting activity)
+                    mGoogleMap.clear();
+                    LatLng posisiku = new LatLng(myLatitude, myLongitude);
+                    mGoogleMap.addMarker(new MarkerOptions().position(posisiku).title("Posisi Anda"));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(posisiku));
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(posisiku, 15));
+                    getAllTempat();
+                }
             }
+        }catch (Exception e){
+
         }
+
     }
 
     @Override

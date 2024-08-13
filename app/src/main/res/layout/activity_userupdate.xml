@@ -16,6 +16,8 @@
         android:layout_height="wrap_content">
     </TextView>
     <EditText
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:id="@+id/etNama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,6 +29,8 @@
         android:layout_height="wrap_content">
     </TextView>
     <EditText
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:id="@+id/etAlamat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -38,6 +42,8 @@
         android:layout_height="wrap_content">
     </TextView>
     <EditText
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:id="@+id/etTempat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,6 +56,8 @@
         android:layout_height="wrap_content">
     </TextView>
     <EditText
+        android:focusable="false"
+        android:clickable="true"
         android:id="@+id/etTgllahir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -61,6 +69,9 @@
         android:layout_height="wrap_content">
     </TextView>
     <EditText
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:hint="Contoh:pria,wanita"
         android:id="@+id/etGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -78,6 +89,8 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -89,12 +102,18 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:imeOptions="actionNext"
+            android:inputType="text"
             android:id="@+id/etUPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </EditText>
     </LinearLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
     <Button
         android:id="@+id/btn"

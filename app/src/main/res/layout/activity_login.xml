@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:orientation="vertical"
-    android:padding="20dp"
+    android:background="@color/white"
+    android:padding="80dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,10 +13,35 @@
 
 
     <TextView
+        android:visibility="gone"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="LOGIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <ImageView
+        android:layout_gravity="center"
+        android:src="@drawable/ic_lock"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <TextView
+
         android:text="Nama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/etPass"
         android:id="@+id/etNama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,6 +57,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:imeOptions="actionDone"
             android:id="@+id/etPass"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -49,7 +76,7 @@
 
     <Button
         android:id="@+id/btn"
-        android:text="Login"
+        android:text="Masuk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </Button>

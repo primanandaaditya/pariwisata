@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     showPass = true;
-                    iv_show_pass.setImageResource(R.drawable.ic_eye);
+                    iv_show_pass.setImageResource(R.drawable.ic_eye_2);
                 }
             }
         });

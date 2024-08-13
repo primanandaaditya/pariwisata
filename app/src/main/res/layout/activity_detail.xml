@@ -17,12 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:src="@drawable/ic_info"
-                android:id="@+id/iv"
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
-            </ImageView>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_info"
+                    android:id="@+id/iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp">
+                </ImageView>
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
             <TextView
                 android:textStyle="bold"
@@ -37,7 +51,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
-
             <TextView
                 android:textSize="18sp"
                 android:text="Alamat"
@@ -48,7 +61,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="5dp"/>
+                android:layout_height="10dp"/>
 
             <TextView
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
@@ -66,7 +79,6 @@
                 android:text="Buka Peta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </Button>
 
         </LinearLayout>

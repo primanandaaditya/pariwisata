@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content">
             </TextView>
             <EditText
+                android:inputType="text"
                 android:nextFocusDown="@id/etAlamat"
                 android:imeOptions="actionNext"
                 android:id="@+id/etNama"
@@ -37,6 +38,7 @@
                 android:layout_height="wrap_content">
             </TextView>
             <EditText
+                android:inputType="text"
                 android:imeOptions="actionNext"
                 android:id="@+id/etAlamat"
                 android:layout_width="match_parent"
@@ -49,6 +51,7 @@
                 android:layout_height="wrap_content">
             </TextView>
             <EditText
+                android:inputType="text"
                 android:imeOptions="actionNext"
                 android:id="@+id/etDeskripsi"
                 android:layout_width="match_parent"
@@ -61,6 +64,7 @@
                 android:layout_height="wrap_content">
             </TextView>
             <Spinner
+                android:background="@drawable/rounded_border_edittext"
                 android:imeOptions="actionNext"
                 android:id="@+id/spKategori"
                 android:layout_width="match_parent"
@@ -69,13 +73,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
-            <View
-                android:background="@color/abu"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -94,12 +92,15 @@
                     </TextView>
                     <EditText
                         android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
+                        android:inputType="text"
                         android:id="@+id/etLatitude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </EditText>
                 </LinearLayout>
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"/>
 
                 <LinearLayout
                     android:layout_weight="1"
@@ -113,8 +114,8 @@
                         android:layout_height="wrap_content">
                     </TextView>
                     <EditText
-                        android:imeOptions="actionNext"
-                        android:inputType="numberDecimal"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
                         android:id="@+id/etLongitude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -122,6 +123,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/llFoto"
@@ -136,7 +141,7 @@
                     android:layout_height="wrap_content">
                 </TextView>
                 <ImageView
-                    android:src="@drawable/ic_launcher_background"
+                    android:src="@drawable/ic_image"
                     android:id="@+id/iv"
                     android:layout_width="match_parent"
                     android:layout_height="200dp">
@@ -146,6 +151,9 @@
             </LinearLayout>
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
             <Button
                 android:text="Simpan"
                 android:id="@+id/btnSimpan"

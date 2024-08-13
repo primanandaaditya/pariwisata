@@ -61,22 +61,22 @@ public class UserAdapter extends BaseAdapter {
         user = userModel.getPesan().get(position);
 
         if (user.getNama()!=null){
-            tvNama.setText(user.getNama());
+            tvNama.setText("  " + user.getNama());
         }
         if (user.getAlamat()!=null){
-            tvAlamat.setText(user.getAlamat());
+            tvAlamat.setText("  " + user.getAlamat());
         }
         if (user.getRole()!=null){
-            tvRole.setText(user.getRole());
+            tvRole.setText("  " + user.getRole());
         }
         if (user.getTempat()!=null){
-            tvTempat.setText(user.getTempat());
+            tvTempat.setText("  " + user.getTempat());
         }
         if (user.getTgllahir()!=null){
-            tvTgllahir.setText(user.getTgllahir());
+            tvTgllahir.setText("  " + user.getTgllahir());
         }
         if (user.getGender()!=null){
-            tvGender.setText(user.getGender());
+            tvGender.setText("  " + user.getGender());
         }
         return convertView;
     }

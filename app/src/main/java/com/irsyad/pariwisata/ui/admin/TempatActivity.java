@@ -43,7 +43,14 @@ public class TempatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tempat);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findId();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     void findId(){
@@ -55,6 +62,7 @@ public class TempatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TempatActivity.this, TempatUpdateActivity.class);
+                intent.putExtra("jenis","1");
                 startActivity(intent);
             }
         });
